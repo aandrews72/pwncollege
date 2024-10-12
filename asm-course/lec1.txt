@@ -1,0 +1,25 @@
+logic gates - center of CPU. Lots of them many very fast computations 
+4 main types of logic gates but others can be built with the other 3. There is the:
+AND gate if both bits are true (some voltage), some voltage comes out as true 
+OR gate if either bit is true, the output is true 
+XOR gate if only one input is true the output is true 
+NOT gate if input is true output is false vice versa 
+
+Very simple but when combining these gates in clever ways we can make full computers
+
+With enough logic gates and combinations we get a computer capable of computations. 
+
+Comp architecture: HIGH LEVEL
+Mem, disk, network + others, all connecting to a bus/bridge that connects to the CPU
+Inside the CPU, we have registers, control unit, ALU, Cache layers (very small fast on chip storage). When we read from memory that memory goes into the cache in case we need to use it again
+
+
+
+
+
+
+
+
+
+
+

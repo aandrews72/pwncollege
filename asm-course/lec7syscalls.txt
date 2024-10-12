@@ -1,0 +1,19 @@
+Environment interaction
+What are system calls:
+They take an instruction that makes a call into the OS
+sysclal triggers the system call specified by the value in rax
+arguments in rdi rsi rdx r10 r8 and r9, ret value in rax 
+It makes the OS handle program interaction with the rest of the environment
+
+Reading 100 bytes from stdin to the stack:
+n = read(0, buf, 100)
+mov rdi, 0
+mov rsi, rsp
+mov rdx, 100
+mov rax, 0 
+syscall
+
+
+
+
+

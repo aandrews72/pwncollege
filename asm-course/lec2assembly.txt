@@ -1,0 +1,44 @@
+Binary is difficult to speak/understand 
+So we recreated a representation of binary in assembly code 
+ASM and binary are equivalent - one asm instruction is a direct view of binary code 
+
+Assembly is assembled, not compiled. 
+ASM tells the CPU what to do - how do we tell people what to do? With sentences 
+
+Let's look at an asm "sentence"
+Sentence = well call this na instruction in asm
+Verb = what do you want the instruction to do? We'll call this an operation 
+Noun = what do you want the instruction to do it to? Or operand?
+
+ASM is extremely simple since CPUs need to understand it. 
+
+Nouns/operands
+What types of nouns might we deal with? Data!
+Three types of data: data we directly give as a part of an instruction, data that it's actively working on, and data in storage
+
+Verbs/operations 
+What might a computer do with data?
+add, subtract, multiple, divide, move, compare, test
+
+Assembly dialects:
+Every architecture has its own variant: x86, arm, ppc, mips, risc-v, pdp-11 etc.
+Most asm instructions are: 
+OPERATION OPERAND
+OPERATION 
+OPERATION OPERAND OPERAND
+OPERTATION OPERAND OPERAND OPERAND 
+
+x86 runs many systems but its losing market share to arm 
+
+
+
+
+
+
+
+
+
+
+
+
+

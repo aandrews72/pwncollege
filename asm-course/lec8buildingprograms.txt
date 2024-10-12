@@ -1,0 +1,58 @@
+
+Building asm
+
+.intel_syntax tells the assembelr we are using intel assembly syntax
+noprefix tells it we will not prefix all register names with %
+
+.intel_syntax noprefix
+    mov rdi, 42 # return code for bash scripts 
+    mov rax, 60 # system call number of exit()
+    syscall # do syscall 
+
+
+Asm is named after the assembler so lets use it
+gcc -nostdlib -o quitter quitter.s 
+file quitter 
+If that warning from ld annoys you after assembling, add this to beginning of the program so that gcc doesn't have to guess at where your code starts
+.global _start
+_start:
+#rest of our code 
+
+
+You can disassemble your program with:
+objdump -M intel -d quitter
+
+
+gcc builds our asm into a full ELF program 
+We can just extract the binary code
+objcopy --dump-section .text=quitter_binary_code quitter
+
+
+
+Debugging:
+gdb 
+You can literally add int3 on a line and itll trigger the debugger with a breakpoint
+strace - letes you figure out how your program is interacting with the OS
+Rappel - lets you explore the effects of instructions 
+Docs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

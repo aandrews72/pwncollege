@@ -1,0 +1,59 @@
+Data 
+
+The CPU only underestands binary, 1 or 0
+
+Binary is a base 2 number system, wher binary digits are called bits.
+
+Why do computers speak binary? Consider the logic gate.
+a. A, B, Q represented in slides are either "on" or "off" (logic gates depicted)
+b. these concepts can be mapped to 1 and 0
+c. on/off are easy to check for 
+
+
+Humans and Binary
+Round numbers doing line up well with binary and decimal 
+But if we use a base that is a power of two, base 4 8 16 etc it lines up cleaner. So we use base 16 (hex) a bit more since it aligns better.
+
+
+Expressing text
+Bits in a computer typically do something useful.
+Exmaples: encoding asm instructions, programs, imgaes, text.
+So ASCII is helpful for encoding with 7 bits. 
+ASCII has evolved into UTF-8, used 98% of the web
+
+
+Grouping bits into bytes 
+8 bits = 1 bytes
+This is due to text encoding, the amount of bits to a byte is subjective
+
+
+How do we express negative numbers?
+Two's complement - negative numbers have the same representation as positive numbers 
+0 - 1 = 0b11111111 = 255 = -1 
+With signed/unsigned 
+Signing cuts the range of positive numbers in half because half of the bit representations are reserved for negative numbers
+
+
+Anataomy of a word: 0xc001c475
+Higher bits in order: c0 01
+Lower bits in order of lowest: 75 c4
+Most significant bits to least significant: c0 01 c4 75
+
+
+
+
+Q's
+What does it mean when a CPU is 64 bit or 32 bit?
+It describes the width of the processor's data bus, registers, and general architecture
+
+
+
+
+
+
+
+
+
+
+
+

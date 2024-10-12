@@ -1,0 +1,8 @@
+
+Registers are used for rapid access to data they're working on
+Regsiter file holds a bunch of registers
+
+Most registers are the size of the number of bit architecture
+
+
+

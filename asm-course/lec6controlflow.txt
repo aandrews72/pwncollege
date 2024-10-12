@@ -1,0 +1,79 @@
+Computers make decisions based on control flow impacting instructions 
+
+What To Execute:
+The binary code that asm translate to live in memory 
+
+
+Control flow: jumps 
+CPUs execute instruciton in sequence until told not to 
+One way to interrupt the sequence is with jmp 
+mov cx, 1337
+jmp STAY_LEFT
+mov cx, 0
+STAY_LEFT:
+push rcx
+
+
+Conditions:
+Cond jumps check conditions stored in the falgs regsiter: rflags
+Flags are updated by most arithmetic instructions, cmp instructions (sub, but discards result), and comp instruction test (and, but discards result)
+Main cond flags:
+Carry flag: was the 65th bit 1?
+Zero flag: was the result 0?
+Overflow flag: did the result 'wrap' between pos to negative?
+Signed flag: was the result signed bit set (was it negative?)
+
+
+Loops:
+With cond jumps we can implement a loop
+Example: this counts to 10
+mov rax, 0
+LOOP_HEADER:
+inc rax
+cmp rax, 10 
+jb LOOP_HEADER 
+
+With looping and control flow, we have almost everything we need to write anything we want. We now just need functions 
+
+Assembly code is split into functions with call and ret.
+call pushes rip (addres of next instruction after call) and jumps away
+ret pops rip and jumps to it 
+
+mov rdi, 0
+call FUNC_CHECK_LEET
+mov rdi, 1
+call FUNC_CHECK_LEET
+call EXIT
+
+FUNC_CHECK_LEET:
+    test rdi, rdi 
+    jz LEET
+    mov ax, 0
+    ret
+    LEET:
+    mov ax, 1337
+    ret
+FUNC_EXIT:
+    ???
+
+
+
+Calling Conventions:
+Linux x86: push args (in rev order) then call (which pushes ret addr), return value in eax 
+Linux amd64: rdi, rsi, rdx, ecx, r8, r9, return value in rax 
+Linux arm: r0 r1 r2 r3 return val in r0
+
+Registers are shared between functions, so calling conventions should agree on what registers are protected 
+Linux amd64:
+rbx, rbp, r12, r13 r14 r15 are "callee-saved" (the function you call keepts their values safe on the stack)
+Other registers are up for grabs - within reason as rsp must be maintained. Save their values on the stack!
+
+
+
+
+
+
+
+
+
+

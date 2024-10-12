@@ -1,0 +1,138 @@
+Registers are expensive and we have a limited number of them.
+We need a place to store lots of data and fairly fast access to it when needed, this place is system memory. 
+
+Again in our broad CPU architecture, we have a bridge/bus connecting the CPU and the disk/memory/nnetwork hardware and other things. 
+
+Memory: Process Perspective
+Your process memory is used for a lot:
+Memory <-> Registers
+Memory <-> Disk
+Memory <-> Network
+Memory <-> Video card
+There is too much memory to name every location tbh 
+Process memory is ADDRESSED linearly:
+From 0x10000 (for sec reasons) to 0x7fffffffffff (for architecture/os purposes)
+Each memory address references one byte in memory. This means 127 terabytes of addressable RAM.
+
+
+A Process' Memory:
+We obviously don't have 127 TB of RAM, but thats okay since it's virtual.
+Your process' memory starts out partially filled in by the OS. Then, the process can ask for more memory from the OS (more on this later)
+
+
+Memory from the Stack's perspective:
+The stack has several uses, for now let's talk about temporary data storage.
+Registers and immediates can be pushed onto the stack to save values. 
+mov rax, 0xc001ca75
+push rax
+push 0xb0bacafe 
+push rax 
+Like mov, push leaves the value in the soruce register intact. 
+
+Values may also be popped back off the stack (to any register!)
+pop rbx # sets rbx to 0xc001ca75 
+pop rcx # sets rcx to 0xb0bacafe
+
+
+Addressing the stack:
+The CPU knows where the stack is because its address is stored in rsp 
+Historical oddity: the stack grows backwards towards smaller memory addresses. 
+So push decreases rsp (makes the memory address "smaller")  by 8
+While pop increases rsp by 8
+
+
+Accessing memory:
+You can also move data between registers and memory with mov 
+This will load the 64-bit values stored at mem addr 0x12345 into rbx: 
+mov rax, 0x12345
+mov rbx, [rax] 
+
+This will store the 64-bit value in rbx into memory at address 0x133337:
+mov rax, 0x133337
+mov [rax], rbx 
+
+This is equivalent to push rcx:
+sub rsp, 8
+mov [rsp], rcx
+
+*** Each addressed mem location contains one byte. 
+
+
+Controlling Write Sizes 
+You can use partials to store/load fewer bits 
+Load 64 bits from addr 0x12345 and store the lower 32 bits to addr 0x133337:
+mov rax, 0x12345
+mov rbx, [rax] 
+mov rax, 0x133337
+mov [rax], ebx
+
+Store 8 bits from ah to addr 0x12345 
+mov rax, 0x12345 
+mov bh, [ah]
+
+Changing 32-bit partials (by loading from memory) zeroes out the whole 64-register. Storing 32-bits to memory has no such problems though
+
+
+Memory Endianess:
+Data on most modern systems is stored backwards in little endian 
+mov eax, 0xc001ca75 # sets rax to c0 01 ca 75 
+mov rcx, 0x10000
+mov [rcx], eax # stores data as 75 ca 01 c0 
+mov bh, [rcx] # read 0x75
+
+Bytes are only shuffled for multi-byte stores and loads of registers to memory.
+Individual bytes never have their bits shuffled. Yes, writes to the tack behave just like any other write to memory. 
+
+
+Address Calculation 
+You can do some limited calculation for mem addresses
+Use rax as an offset off some base address (in this case the stack)
+mov rax, 0
+mov rbx, [rsp+rax*8] # read a qword right at the stack pointer
+mov inc rax 
+mov rcx, [rsp+rax*8] # read a qword to the right of the previous one 
+
+You can also get the calculated address with load effective address (lea) 
+mov rax, 1 
+pop rcx 
+lea rbx, [rsp+rax*8+5] # rbx now holds the computed address for double-checking 
+mov rbx, [rbx] 
+
+Address calculation has limits 
+reg+reg*(2 or 4 or 8) + vaue is as good as it gets 
+
+
+RIP-Relative Addressing 
+lea is one of the few instructions that  can directly access the rip register!
+lea rax, [rip] # load addr of the next instruciton into rax 
+lea rax, [rip+8] # the addr of the next isntruction, plus 8 bytes
+
+You can also use mov to read directly from those locations 
+mov rax, [rip] $ load 8 bytes from the location pointed ot by the addr of the next instruction 
+
+Or even write there 
+mov [rip], rax # write 8 bytes over the next instruction (caveats apply)
+
+This is useful for working with data embedded near your code 
+This is what makes certain sec features on modern machines possible
+
+
+Write immediate values to memory:
+You can also write immediate values. We must specify their size!
+This writes  32-bit 0x1337 (padded with 0 bits0 to address 0x133337)
+mov rax, 0x13337 
+mov DWORD PTR [rax], 0x1337
+Depending on our assembly it might expect DWORD instead of DWORD PTR
+
+
+
+
+
+
+
+
+
+
+
+Go over control unit and ALU, look up any other things like these, figure out what they are exactly
+Go over push decreasing rsp and pop increasing it. Also how much does it increase or decrease by? If its 8, 8 what?

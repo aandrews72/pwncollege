@@ -86,118 +86,91 @@ POST allows us to push data to server as opposed to previous two where we receiv
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 URLs and Encoding 
 
+<scheme>://<host>:<port>/<path>?<query>#<fragment>
+
+scheme: protocol used to access resource 
+host: host that holds resource
+port: port for program servicing resource
+path: identifies the specific resource
+query: information that the resource can use 
+fragment: client information about the resource 
+
+
+http://example.com:80/cat.gif?width=256&height=256#t=2s
+
+scheme = http
+host = example.com (server holding resource)
+port = 80. transport layer, a server may have serveral services being run, this specifies the service.
+path = cat.gif. identifies the specific resource we want access to
+query = width=256&height=256. This is what we need to maybe get the resource or interact with that resource 
+fragment = client specific information
+
+
+Recall: request-line = method <space> Request-URI <space> HTTP-Version CRLF
+Regarding the request-uri - critical component of URL 
+
+There are some unsafe and or illegal characters that if we enter with our GET request will create problems. A way to get around this is to encode those unsafe characters into hex. So we have the space character mapped to %20 - (hex)
+
+So instead of 
+GET /Hello World HTTP/1.0
+Host: hello.example.com
+
+It'd be
+GET /Hello%20World HTTP/1.0
+Host: hello.example.com
+
+There are other encoding types, that was for URL but there are other for various content-types.
+
+Content-Type: application/x-ww-form-urlencoded: name=Connor
+We can also use JSON content-type: application/json {"name": "Connor"} 
 
 
 
 
+------------------------------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-----------------------------------------------------------------------------
 State
 
+There are various program states other then just the static state we've been using like dynamic.
+
+The issue with state here is the http is a stateless protocol, this creates an issue if we want to maintain state. 
+
+The solution to this problem is http cookies. 
+We can use HTTP headers for maintaining state. 
+1. The server sets a cookie in response with the header: Set-Cookie
+2. The client includes the cookie in future requests with header: Cookie
+
+The server can now use the cookie provided in those future requests
+
+--------------------------------------------------------------------------------------------
+
+Making HTTP requests
+
+curl -X POST 127.0.0.1 = send post request
+curl 127.0.0.1 = get resources at that ip 
+curl -X POST -H 'User-Agent: Connor' 127.0.0.1 = makes us appear as Connor instead of curl
+
+nc example.com 80 = connect to example.com on port 80
+Then it will hang, it will wait for us to type in some input. So after entering the above we can do 
+Get / HTTP/1.0
+Host: example.com 
+
+or 
+
+GET /test-it HTTP/1.0 
+Host: example.com 
 
 
+In python we can use the requests library 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
------------------------------------------------------------------------------
-Mkaing HTTP requests
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+import requests
+response = requests.get('http://emaple.com')
+response 
+response.text
+response.headers 
+for k, v in response.headers.items():
+    print(f"{k}: {v}")
 

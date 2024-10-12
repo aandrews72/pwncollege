@@ -1,0 +1,203 @@
+Introduction:
+WWW is a web of information, hypertext links take us to other pages
+
+
+All these distributed pages are speaking a universal language, HTTP. This allows sites to reach out to another. This sends an HTTP GET request to a web server hosting this resource we are requesting. They all just speak a standardized langauge. 
+
+Dynamic HTTP request - GET request for time of UTC where web server does computations. 
+
+
+
+
+
+
+
+------------------------------------------------------------------------------
+Internet:
+
+Infrastructure for www. WWW needs a system to communicate with other machines/resources
+
+Basic idea: to communicate remotely we use a medium to transmit the message. If my system isn't physically connected how do we do this? We can use the internet! It is a distributed system of machines. Messages go from system to system to system etc. to end destination. 
+
+Network of networks. 
+
+Abstraction - to service http requests we use the internet as a system to pass messages along to abstract away the system passing these requests away.
+
+The abstraction takes away lots of the particulars of the TCP/IP model so we have:
+Data - which has a UDP header and UDP data, which is apart of the IP data where we add an IP header, which is all apart of a frames data which is encapsulated by a frame header and footer.
+
+Link layer - frame. Physical links of computers. Passing info to neighboring systems. 
+
+Internet layer - IP header/data. Concerned with finding right node/destination. IP, ICMP, ARP. Not every node is directly connected to another but they're all indirectly connected. 
+
+Transport layer on top of internte layer. UDP/TCP header and data. Wants to find the right PROGRAM. Concerned with ports, so we're on the right machine but we need to get to the right program. Provides a circuit connection / reliability. 
+
+Application layer - data. HTTP. How will we talk to the program? What protocol will we use. Standardized language. Can also use FTP, SMTP, SSH, 
+
+
+
+
+
+
+-----------------------------------------------------------------------------
+RFC 1945:
+
+First request for comment to define http. The need to standardize requests/replies. RFC 1945 laid out exactly what HTTP is. 
+
+Simple HTTP request - send out data over internet. 
+GET / HTTP/1.0 - This is the request line: 
+Request-line = Method <space> Request-URI <space> HTTP-Version <CRLF>
+The GET is our method, the action we take. We have GET HEAD and POST (in RFC 1945). 
+Request-URI is the / here. 
+HTTP-Version is HTTP/1.0.
+
+Response: HTTP/1.0 200 OK 
+Status-Line = HTTP-Version <space> Status-code <space> Reason-phrase <CRLF>
+HTTP/1.0 is the http version 
+200 is the status code 
+Reason phrase is OK.
+
+Status Code definition. 
+1xx Informational 
+2xx Success 
+3xx Redirection 
+4xx Client error
+5xx Server error
+
+Method definitions: GET HEAD POST 
+GET - retrieve information is identified by the request-uri. If the request-URI refrs to a data-producing process, it is the produced data which shall be returned as the entity in the response and not the source text of the process,  unless that text happens to be the output of the process.
+Full HTTP Request: GET 
+GET /greet HTTP/1.0
+Host: hello.example.com
+
+Response: GET 
+HTTP/1.0 200 OK 
+Content-Type: text/html; charset=UTF-8
+Content-Length: 39 
+<html><body>Hello, World!</body></html>
+
+HEAD: Identical to get but server must not return any entity-body in the response. The metainfo contained in the HTTP headers in response to a HEAD request should be identical to the info sent in response to a GET request. We'd get everything but the hello world/html compared to prev get request. 
+
+
+POST - request that dest server accept the entity enclosed in the request as a new subordinate of the resource identified by the request-uri in the request-line. 
+POST allows us to push data to server as opposed to previous two where we receive info from the server.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------
+URLs and Encoding 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------
+State
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------
+Mkaing HTTP requests
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

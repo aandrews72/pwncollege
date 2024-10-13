@@ -1,0 +1,5 @@
+https://linux.die.net/man/1/curl
+https://linux.die.net/man/1/nc
+https://requests.readthedocs.io/en/latest/
+https://www.w3schools.com/tags/ref_urlencode.ASP
+https://stackoverflow.com/questions/14978411/http-post-and-get-using-curl-in-linux
